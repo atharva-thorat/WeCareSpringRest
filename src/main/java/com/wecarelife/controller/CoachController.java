@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 
 import com.wecarelife.dto.BookingDTO;
 import com.wecarelife.dto.CoachDTO;
@@ -33,7 +31,7 @@ public class CoachController {
 	BookingService bookingService;
 	
 	@PostMapping("/coaches")
-	public ResponseEntity<Integer> createCoach(@Valid @RequestBody CoachDTO coachDTO, Errors error) {
+	public ResponseEntity<Integer> createCoach(@RequestBody CoachDTO coachDTO, Errors error) {
 		return ResponseEntity.status(HttpStatus.OK).body(coachService.createCoach(coachDTO));
 		
 	}

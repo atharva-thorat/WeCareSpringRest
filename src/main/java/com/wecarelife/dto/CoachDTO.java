@@ -2,13 +2,11 @@ package com.wecarelife.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotNull;
 
 public class CoachDTO {
 
 	private Integer coach_id;
 
-	@NotNull(message="Name should not be null!")
 	private String name;
 	
 	private String gender;
