@@ -12,6 +12,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorMessage> MethodArgumentNotValidHandler(MethodArgumentNotValidException ex){
+		ErrorMessage error = new ErrorMessage();
+		error.setErrorCode(HttpStatus.BAD_REQUEST.value());
+		error.setErrorMessage(ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage)
+			        		                                  .collect(Collectors.joining(", ")));
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(WecareException.class)
 	public ResponseEntity<ErrorMessage> weCareExceptionHandler(WecareException ex){
 		
@@ -20,15 +29,6 @@ public class ExceptionControllerAdvice {
 		error.setErrorMessage(ex.getMessage());
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
-	}
-	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErrorMessage> MethodArgumentNotValidHandler(MethodArgumentNotValidException ex){
-		ErrorMessage error = new ErrorMessage();
-		error.setErrorCode(HttpStatus.BAD_REQUEST.value());
-		error.setErrorMessage(ex.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage)
-			        		                                  .collect(Collectors.joining(", ")));
-		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 	 
 	@ExceptionHandler(Exception.class)

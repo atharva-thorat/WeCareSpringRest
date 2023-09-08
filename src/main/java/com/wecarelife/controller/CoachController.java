@@ -18,8 +18,9 @@ import com.wecarelife.dto.CoachDTO;
 import com.wecarelife.dto.LoginDTO;
 import com.wecarelife.exception.WecareException;
 import com.wecarelife.service.BookingService;
-//import com.wecarelife.exception.WecareException;
 import com.wecarelife.service.CoachService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class CoachController {
@@ -31,7 +32,7 @@ public class CoachController {
 	BookingService bookingService;
 	
 	@PostMapping("/coaches")
-	public ResponseEntity<Integer> createCoach(@RequestBody CoachDTO coachDTO, Errors error) {
+	public ResponseEntity<Integer> createCoach(@Valid @RequestBody CoachDTO coachDTO, Errors error) {
 		return ResponseEntity.status(HttpStatus.OK).body(coachService.createCoach(coachDTO));
 		
 	}
